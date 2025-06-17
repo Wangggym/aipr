@@ -1,12 +1,12 @@
 [package]
-name = "pr-title-translator"
+name = "aipr"
 version = "0.1.0"
 edition = "2024"
 description = "We use ai agent to generate the ai pull-request title"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/Wangggym/pr-title-translator"
-homepage = "https://github.com/Wangggym/pr-title-translator"
-documentation = "https://docs.rs/pr-title-translator"
+repository = "https://github.com/Wangggym/aipr"
+homepage = "https://github.com/Wangggym/aipr"
+documentation = "https://docs.rs/aipr"
 readme = "README.md"
 keywords = ["ai", "pull-request", "title", "agent"]
 categories = ["development-tools", "command-line-utilities"]
