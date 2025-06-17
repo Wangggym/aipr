@@ -21,9 +21,12 @@ struct Args {
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    let api_key = std::env::var("DEEPSEEK_KEY")?;
+    let api_key = std::env::var("aipr_key").map_err(|_| anyhow::anyhow!("环境变量 aipr_key 未设置"))?;
+    let api_url = std::env::var("aipr_url").map_err(|_| anyhow::anyhow!("环境变量 aipr_url 未设置"))?;
+    let model = std::env::var("aipr_model").map_err(|_| anyhow::anyhow!("环境变量 aipr_model 未设置"))?;
+
     let config = OpenAIConfig::new()
-        .with_api_base("https://api.deepseek.com/v1")
+        .with_api_base(api_url)
         .with_api_key(api_key);
     let client = Client::with_config(config);
 
@@ -33,7 +36,7 @@ async fn main() -> anyhow::Result<()> {
     );
 
     let req = CreateChatCompletionRequestArgs::default()
-        .model("deepseek-chat")
+        .model(model)
         .messages([ChatCompletionRequestMessage::User(
             ChatCompletionRequestUserMessage {
                 content: ChatCompletionRequestUserMessageContent::Text(prompt),
