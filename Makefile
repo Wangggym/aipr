@@ -44,3 +44,33 @@ release-patch: bump-patch
 	@git push origin master --tags
 
 # 你可以类似添加 release-minor、release-major 
+
+.PHONY: fmt check test build run clean
+
+# 格式化代码
+fix:
+	cargo fmt --all
+
+# 运行所有检查（格式检查和 clippy）
+check:
+	cargo fmt --all -- --check
+	cargo clippy -- -D warnings
+
+# 运行测试
+test:
+	cargo test
+
+# 构建项目
+build:
+	cargo build
+
+# 运行项目（需要提供 title 参数）
+run:
+	cargo run -- --title $(title)
+
+# 清理构建产物
+clean:
+	cargo clean
+
+# 默认任务：运行所有检查
+default: check 

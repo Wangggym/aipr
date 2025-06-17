@@ -1,14 +1,12 @@
-use clap::Parser;
 use async_openai::{
+    Client,
     config::OpenAIConfig,
     types::{
-        CreateChatCompletionRequestArgs,
-        ChatCompletionRequestMessage,
-        ChatCompletionRequestUserMessage,
-        ChatCompletionRequestUserMessageContent,
+        ChatCompletionRequestMessage, ChatCompletionRequestUserMessage,
+        ChatCompletionRequestUserMessageContent, CreateChatCompletionRequestArgs,
     },
-    Client,
 };
+use clap::Parser;
 
 /// PR Title Translator: 将 PR 标题翻译成英文
 #[derive(Parser, Debug)]
@@ -21,9 +19,12 @@ struct Args {
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    let api_key = std::env::var("aipr_key").map_err(|_| anyhow::anyhow!("环境变量 aipr_key 未设置"))?;
-    let api_url = std::env::var("aipr_url").map_err(|_| anyhow::anyhow!("环境变量 aipr_url 未设置"))?;
-    let model = std::env::var("aipr_model").map_err(|_| anyhow::anyhow!("环境变量 aipr_model 未设置"))?;
+    let api_key =
+        std::env::var("aipr_key").map_err(|_| anyhow::anyhow!("环境变量 aipr_key 未设置"))?;
+    let api_url =
+        std::env::var("aipr_url").map_err(|_| anyhow::anyhow!("环境变量 aipr_url 未设置"))?;
+    let model =
+        std::env::var("aipr_model").map_err(|_| anyhow::anyhow!("环境变量 aipr_model 未设置"))?;
 
     let config = OpenAIConfig::new()
         .with_api_base(api_url)
@@ -41,12 +42,17 @@ async fn main() -> anyhow::Result<()> {
             ChatCompletionRequestUserMessage {
                 content: ChatCompletionRequestUserMessageContent::Text(prompt),
                 name: None,
-            }
+            },
         )])
         .build()?;
 
     let resp = client.chat().create(req).await?;
-    let translation = resp.choices[0].message.content.as_deref().unwrap_or("").trim();
+    let translation = resp.choices[0]
+        .message
+        .content
+        .as_deref()
+        .unwrap_or("")
+        .trim();
     println!("英文翻译: {}", translation);
     Ok(())
 }
