@@ -1,0 +1,20 @@
+[package]
+name = "pr-title-translator"
+version = "0.1.0"
+edition = "2024"
+description = "We use ai agent to generate the ai pull-request title"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/Wangggym/pr-title-translator"
+homepage = "https://github.com/Wangggym/pr-title-translator"
+documentation = "https://docs.rs/pr-title-translator"
+readme = "README.md"
+keywords = ["ai", "pull-request", "title", "agent"]
+categories = ["development-tools", "command-line-utilities"]
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+async-openai = "0.28"
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"

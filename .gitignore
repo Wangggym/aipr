@@ -1,0 +1,15 @@
+# Rust build output
+/target/
+
+# If this is a library project, consider ignoring Cargo.lock
+# Cargo.lock
+
+# Ignore backup files generated from Rust source
+*.rs.bk
+
+# Ignore IDE settings
+/.idea/
+/.vscode/
+
+# macOS system files
+.DS_Store
